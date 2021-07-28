@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>管理系统</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" />
+  <script>
+    let appId = 'wx611be6e4ec05296a';
+    let scope = 'snsapi_userinfo';
+    let wxlogin = true;
+  </script>
+  <script>
+    function query(param) {
+      var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2])
+    }
+    let isWechat = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+    if (isWechat && wxlogin) {
+      let code = query('code');
+      if (code) {
+        sessionStorage.setItem('wechat_code', code)
+      }
+      let sessionCode = sessionStorage.getItem('wechat_code');
+      let isLogin = sessionStorage.getItem('wechat_login');
+      if (sessionCode) {
+        if (!isLogin) {
+          sessionStorage.setItem('wechat_login', '1');
+          let hash = query('hash');
+          if (!hash) {
+            hash = ''
+          } else {
+            hash = atob(hash)
+          }
+          location.href = location.origin + '/?t=' + new Date().getTime() + hash
+        }
+      } else {
+        let hash = '';
+        if (location.hash != '') {
+          hash = '?hash=' + btoa(location.hash)
+        }
+        let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appId + '&redirect_uri=' + location.origin +
+          hash + '&response_type=code&scope=' + scope + '&state=STATE#wechat_redirect';
+        location.href = url
+      }
+    }
+  </script>
+<script type="module" crossorigin src="/assets/index.a0256462.js"></script>
+  <link rel="modulepreload" href="/assets/vendor.8e4b4d0e.js">
+  <link rel="stylesheet" href="/assets/index.a2e457ab.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  
+</body>
+
+</html>

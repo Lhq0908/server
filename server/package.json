@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "koa": "^2.13.1",
+    "koa-static": "^5.0.0"
+  },
+  "name": "a",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "pm2 startOrReload ecosystem.config.js --env development --update-env",
+    "test": "pm2 startOrReload ecosystem.config.js --env staging --update-env",
+    "start": "pm2 startOrReload ecosystem.config.js --env production --update-env",
+    "stop": "pm2 stop test-server.syd666.com",
+    "reload": "pm2 reload test-server.syd666.com",
+    "delete": "pm2 delete test-server.syd666.com"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
