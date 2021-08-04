@@ -3,6 +3,8 @@
 
 端口6639
 
-停止重启 删除
-可以直接运行 
-pm2 stop test-server.syd666.com
+停止重启删除可以改成
+ 
+停止 pm2 stop ecosystem.config.js
+重启 pm2 reload ecosystem.config.js
+删除 pm2 delete ecosystem.config.js
